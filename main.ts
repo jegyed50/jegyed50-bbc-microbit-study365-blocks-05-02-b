@@ -5,16 +5,17 @@ input.onLogoEvent(TouchButtonEvent.LongPressed, function () {
     input.calibrateCompass()
 })
 input.onButtonPressed(Button.A, function () {
-    sense = sense - 25
+    sense = sense - 50
 })
 input.onButtonPressed(Button.AB, function () {
     sense = 1
 })
 input.onButtonPressed(Button.B, function () {
-    sense = sense + 25
+    sense = sense + 50
 })
 let mf = 0
 let sense = 0
+radio.setGroup(1)
 sense = 1
 input.setAccelerometerRange(AcceleratorRange.OneG)
 if (input.compassHeading() == -1003) {
@@ -27,7 +28,8 @@ if (input.compassHeading() == -1003) {
 basic.pause(3000)
 basic.forever(function () {
     mf = input.magneticForce(Dimension.Strength)
-    serial.writeValue("mf", 0)
+    serial.writeValue("mf", mf)
+    radio.sendValue("mf", mf)
     led.plotBarGraph(
     mf,
     500 + sense
