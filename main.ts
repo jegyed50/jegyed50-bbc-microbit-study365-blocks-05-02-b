@@ -5,13 +5,13 @@ input.onLogoEvent(TouchButtonEvent.LongPressed, function () {
     input.calibrateCompass()
 })
 input.onButtonPressed(Button.A, function () {
-    sense = sense + 10
+    sense = sense - 25
 })
 input.onButtonPressed(Button.AB, function () {
     sense = 1
 })
 input.onButtonPressed(Button.B, function () {
-    sense = sense - 10
+    sense = sense + 25
 })
 let mf = 0
 let sense = 0
@@ -29,7 +29,7 @@ basic.forever(function () {
     mf = input.magneticForce(Dimension.Strength)
     serial.writeValue("mf", 0)
     led.plotBarGraph(
-    mf / sense,
-    500
+    mf,
+    500 + sense
     )
 })
